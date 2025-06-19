@@ -19,7 +19,20 @@
 ・ラムダ式でコードの短縮化を学ぶ
 
 💡 気づき・理解できたこと
-・
+・匿名クラス：メソッドの実装→メソッドの呼び出し
+  例）Lambda_Test2 lambda = new Lambda_Test2() {
+      	public void test2(String str) {
+		      System.out.println(str);
+        }
+      };
+・ラムダ式：（引数）-> 処理内容
+  例）Lambda_Test3 lambda = (str) -> System.out.println(str);
+
+  省略内容                省略できる場合
+    メソッドの処理を囲む{}	  処理が1文の場合
+    return文	             メソッドの処理を囲む{}の省略を行う場合
+    引数の型	              省略できるための条件は特になし
+    引数を囲む()            引数が1個の場合
 
 ❓難しかったこと・疑問
 Q. 
