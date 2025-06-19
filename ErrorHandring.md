@@ -10,7 +10,7 @@
 # Exceptionクラス (例外クラスの最後につけて書く！)
   例外を処理するクラスの継承元となるクラス。Exceptionクラスの継承先は、非検査例外であるRuntimeExceptionクラスと、検査例外であるクラス。
   非検査例外を行う個々のクラスは、さらにRuntimeExceptionクラスを継承
-  ![alt text](image.png)
+  ![alt text](Exception.png)
 
 # プログラム実行時に発生するエラー
 # 3種類の[障害]がある。
