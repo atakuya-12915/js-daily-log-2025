@@ -20,6 +20,7 @@
 
 💡 気づき・理解できたこと
 ・テーブル作成/削除/データの取得/追加は、データベースファイルでクエリ実行する
+・評価：式の値を計算すること（TRUE or FALSEのどちらであるかを判定すること）
 
 ・オプション
   SQL文	        意味
@@ -29,6 +30,10 @@ INT、VARCHAR：データ型。
 AUTO_INCREMENT：カラムの値を自動増加に設定するオプション。データを追加する際に値を入れなかった場合、「1、2、3……」のようにデータベース側が自動的に番号を割り当ててくれる。
 PRIMARY KEY：カラムにプライマリーキー（主キー）を設定するオプション。テーブル内のデータ（レコード、テーブルの横1行）を一意に識別するために設定する（主キーがないと、例えば商品名や価格など全く同じデータが2つ存在する場合に区別できなくなってしまう）。ユーザーIDや社員番号など一意、つまり重複する値が存在しないカラムに設定される。
 NOT NULL：NULL（データが何もない状態）を禁止するオプション。NOT NULLを設定した場合、そのカラムに値を入れないままデータを追加しようとすると、エラーが発生する。
+
+# 曖昧検索のワイルドカード文字と意味
+%	    0文字以上の任意の文字列
+_	    任意の1文字
 
 # サンプルコード
 1. データベース・テーブルの作成（CREATE文）
@@ -57,6 +62,44 @@ NOT NULL：NULL（データが何もない状態）を禁止するオプショ�
     ```
     SELECT * FROM users;
     ```
+  ⭐️指定範囲内のデータを確認する場合：Between演算子
+  ① カラムの値が下限値以上、上限値以下のデータを抽出する
+    ```
+    SELECT カラム名 FROM テーブル名 WHERE カラム名 BETWEEN 下限値 AND 上限値;
+    SELECT * FROM users WHERE age 30 AND 40;
+    ```
+  ② カラムの値がリスト（複数の値）のうちいずれかに一致するデータを抽出する
+    ```
+    SELECT カラム名 FROM テーブル名 WHERE カラム名 IN (値1, 値2, ......);
+    SELECT * FROM users WHERE age IN (5, 15, 25, 35, 45, 55, 65, 75);
+    ```
+  
+  ③ 指定した文字列であいまい検索を行い、一致するデータを取得する
+    ```
+    SELECT カラム名 FROM テーブル名 WHERE カラム名 LIKE '検索文字列';
+    SELECT * FROM users WHERE name LIKE '%八%';
+    ```
+  ④ 取得するデータ数の上限を設定する
+    ```
+    SELECT カラム名 FROM テーブル名 LIMIT 最大件数;
+    SELECT * FROM users LIMIT 10;
+    ```
+
+  ⑤ 取得するデータを並び替え
+    特定のカラム(複数指定可)を昇順（ASC）または降順（DESC）で並び替え、その順番でデータを取得する
+    ```
+    SELECT 取得するカラム名 FROM テーブル名 ORDER BY 並び替えるカラム名 並べ方;
+    SELECT * FROM users ORDER BY age ASC/DESC;
+    SELECT 取得するカラム名 FROM テーブル名 ORDER BY 並び替えるカラム名1 並べ方, 並び替えるカラム名2 並べ方, ……;
+    SELECT * FROM users ORDER BY age DESC, furigana ASC;
+    ```
+
+  ⑥ 条件に一致するレコード数をカウントする
+    ```
+    SELECT COUNT(*) FROM テーブル名;
+    ```
+    ・COUNT(*)：NULLかどうかにかかわらず、すべてのレコード数を取得する
+    ・COUNT(カラム名)：NULLを除いたレコード数を取得する
 
 6. データの削除
   対象のレコード(id指定)のみ削除
@@ -67,6 +110,44 @@ NOT NULL：NULL（データが何もない状態）を禁止するオプショ�
   ```
   DROP DATABASE データベース名;
   ```
+
+7. 計算
+  ① 指定したカラムの合計値を取得する
+    ```
+    SELECT SUM(カラム名) FROM テーブル名;
+    SELECT SUM(age) FROM users;
+    ```
+  
+  ② 指定したカラムの平均値を取得する
+    ```
+    SELECT AVG(カラム名) FROM テーブル名;
+    SELECT AVG(age) FROM users;
+    ```
+  
+  ③ データの最大値や最小値を取得する
+    ```
+    SELECT MAX/MIN(カラム名) FROM テーブル名;
+    SELECT MAX/MIN(age) FROM users;
+    ```
+
+8. 指定したカラムでグループ化する
+  ① カラムの値が同じレコードをグループ化する
+    ```
+    SELECT COUNT(*) FROM users GROUP BY address;
+    ```
+    ⚠️このままでは、「何が」addressでグループ化されたかの「相関」がわからない。
+    　→SELECT カラム名　で先に指定すると可視化が向上する
+    ```
+    SELECT カラム名, COUNT(*) FROM users GROUP BY address;
+    SELECT address, COUNT(*) FROM users GROUP BY address;
+    ```
+  
+  ② グループ化したデータの絞り込み
+    ```
+    SELECT カラム名 FROM テーブル名 GROUP BY カラム名1, カラム名2, ...... HAVING 条件式;
+    SELECT address, COUNT(*) FROM users GROUP BY address HAVING address = '神奈川県';
+    ```
+
 
 ❓難しかったこと・疑問
 Q. 
