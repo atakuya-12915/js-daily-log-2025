@@ -62,3 +62,54 @@ public class SpringPracticeApplication {
 		SpringApplication.run(SpringPracticeApplication.class, args);
 	}
 }
+
+
+MVCのポイント
+# 🧩 モデル(Model)
+・役割：データの入れ物＆ビジネスロジック
+  ・Javaクラス、DBとのやりとり  
+  ・アプリで使うデータの入れ物
+  ・DBと連携したり、計算・変換などの「ビジネスロジック」も担当
+
+📌 「データをどう持つか・扱うか」を決めるクラス！
+  ```
+  public class User {
+    private String name;
+    private int age;
+    // getter, setter
+  }
+  ```
+
+# 🖥️ ビュー(View) 
+・役割：ユーザーに見せる画面（HTML）を出力
+  ・ユーザーに見せる画面（HTML）を作る
+  ・コントローラから渡されたデータを表示する
+  ・Thymeleaf：JavaとHTMLを合体させてビューを出力する
+
+📌 データを「見た目」として表示する役割！(Thymeleaf)
+  ```
+  <h1>Hello, <span th:text="${name}">Guest</span>!</h1>
+  ```
+
+# 🎮 コントローラ(Controller)
+・役割：リクエストとレスポンスをつなぐ司令塔
+  ・ユーザーからのリクエスト（URLアクセス）を受け取る
+  ・必要に応じてモデルを呼び出し、データを取得
+  ・結果をビューに渡して、レスポンスを返す
+
+📌 ユーザーからの入力と、表示する画面をつなぐ橋渡し役！
+  ```
+  @GetMapping("/hello")
+  public String hello(Model model) {
+    model.addAttribute("name", "Taro");
+    return "hello"; // → hello.htmlを表示
+  }
+  ```
+
+
+  | 項目    | Model（モデル）  | View（ビュー）           | Controller（コントローラ）    |
+| ----- | ----------- | ------------------- | --------------------- |
+| 役割    | データを持つ＆処理する | データを見せる（画面）         | 入力を受けて処理の流れを制御する      |
+| 中身    | Javaクラス     | HTML（+ Thymeleaf等）  | Javaメソッド              |
+| 例     | `User.java` | `index.html`        | `HomeController.java` |
+| 開発の流れ | DB → Model  | Model → View へデータ表示 | 画面とデータの橋渡し            |
