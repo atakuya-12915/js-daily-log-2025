@@ -88,7 +88,8 @@ MVCのポイント
 
 📌 データを「見た目」として表示する役割！(Thymeleaf)
   ```
-  <h1>Hello, <span th:text="${name}">Guest</span>!</h1>
+  <!-- このファイルで、Thymeleafを使うことを宣言 -->
+  <html xmlns:th="https://www.thymeleaf.org">
   ```
 
 # 🎮 コントローラ(Controller)
@@ -106,6 +107,16 @@ MVCのポイント
   }
   ```
 
+  ⭐️@GetMappingのルートアドレス["/"]について
+  ["/"]は[home]を意味する。
+  →デフォルトとしてこの記載でOK ※ただし、プロジェクト内で使えるのは「１度のみ」。[/home]など、2回目以降は変える。
+  また、[/]以降は任意の命名でOK。
+
+  - 🔍 例えるなら…
+  1. URL [/numbers]など は「レストランの入り口のドア」
+  2. コントローラの return ["numberList"] は「そのドアを開けたらどの部屋（HTML）に通すか」
+  3. [numberList.html] は「実在する部屋」
+
 
   | 項目    | Model（モデル）  | View（ビュー）           | Controller（コントローラ）    |
 | ----- | ----------- | ------------------- | --------------------- |
@@ -113,3 +124,32 @@ MVCのポイント
 | 中身    | Javaクラス     | HTML（+ Thymeleaf等）  | Javaメソッド              |
 | 例     | `User.java` | `index.html`        | `HomeController.java` |
 | 開発の流れ | DB → Model  | Model → View へデータ表示 | 画面とデータの橋渡し            |
+
+
+# ビュー
+1. Thymeleafの使用宣言
+2. HTML要素に属性を追加
+  Thymeleafを使う場合、HTML要素に属性を追加する。（thはThymeleafの略）
+  ```
+  th:属性名=値
+  ```
+  テキストデータを出力する場合は、th:text属性を使う。
+  ```
+  <p th:text="侍太郎"></p>
+  ```
+3. spEL（Spring式言語）
+  条件式、計算式を評価（処理）してくれるフレームワーク機能
+  ```
+  th:属性名=${式}
+  <p th:text="${'侍' + '太郎'}"></p>
+  <!-- コントローラから、変数numberのデータを送信すれば下記で画面に出力可能画面に出力が可能 -->
+  <p th:text="${number}"></p>
+  ```
+
+4. ユーティリティオブジェクト（#〇〇）
+  ```
+  #ユーティリティオブジェクト名 
+  ${#numbers.sequence(1,5)} → Javaでいう、int[] numberArray = {1,2,3,4,5};
+  #numbers,#strings,#dates,#lists など
+  ```
+
