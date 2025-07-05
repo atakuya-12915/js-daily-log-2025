@@ -23,6 +23,9 @@
 ・SpringBoot（モデル）
 
 💡 気づき・理解できたこと
+@RestController,@GetMapping("/")
+リンクにアクセスすると、[status:404, type:Not Found]になる
+→パッケージ構成に問題がある or GetMappingでリンク設定に問題がある
 
 ❓難しかったこと・疑問
 Q.
