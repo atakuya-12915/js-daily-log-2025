@@ -18,10 +18,13 @@ Now, I’m diving into full-stack development to create user-friendly web applic
 
 ## 🌱 Currently Learning / 現在の学習内容
 
-- HTML / CSS / JavaScript
+- HTML / CSS
+- JavaScript / jQuery
 - Java / Spring Boot
 - SQL / MySQL
+- Linux
 - React (in progress)
+- Bootstrap (in progress)
 - Git / GitHub
 - RESTful API
 
