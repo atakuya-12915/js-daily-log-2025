@@ -42,3 +42,51 @@ A.
 📈 学習の満足度（1〜5）
 ☐ 1 ☐ 2 ☐ 3 ☐ 4 ◽️ 5
 （理由：つまづいても、時間をかけて理解できているからOK）
+
+
+L復習
+
+Controller作成
+①/user/1 → パスから/user/以降の値：[1]を取り出して出力する
+（@PathVariable）
+②/user/1 → ①同様のメソッドだが、UserServiceクラスのメソッドを呼び出して実行する
+（DI）
+
+Point
+@GetMapping("/num/{number}")　← {変数名}でルートパスを書く
+※/num/number　と書くと、numberはString型の文字列として扱われる
+上記条件で複数のメソッドを定義する場合、毎回/user/{}を書く必要があり面倒。
+→@RequestMapping("/user")　を追記することで、
+以下のすべての@GetMappingパスに[/user]が暗黙でついた状態となる。
+（アクセスURL：http://localhost:8080/user/1）
+
+@RestController で以下のコードを書くと
+http://localhost:8080/user/1　でリクエストすると
+パスからint型で[1]を取得し、number=1 を戻り値として返す
+（=ブラウザに[1]が表示される）
+※戻り値がString型以外の場合は、RestControllerで書く。
+
+CとMを連携させて、データを取得する
+コントローラーでサービスのDIを行い、サービスのメソッドを呼び出す。
+コントローラークラスでコンストラクタを定義。
+```
+public class UserController {
+final UserService userService;
+	public UserController(UserService userService) {
+		this.userService = userService;
+  }
+}
+```
+
+他のクラスのメソッドを呼び出す＝インスタンス化が必要！
+Javaでは、newで作るが、、、
+// の部分は不要。上記のDIでコンストラクタ注入により、UserServiceクラスの
+userServiceオブジェクトが使えるようになる。
+```
+@GetMapping("/{number}")
+	public String showName(@PathVariable int number) {
+ // UserService userService = new UserService();	// DIでは起動時に自動でインスタンスが作成される
+		String newName = userService.showName(number);
+		return newName;
+	}
+  ```
