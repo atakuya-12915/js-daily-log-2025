@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ポートフォリオ：Todoシンプル版</title>
+  <link rel="stylesheet" href="/css/portfolio.css">
+  <style>
+    body { font-family: "Noto Sans JP", sans-serif; margin:0; background:#fdf6f0; color:#333; }
+    header { background:#ffb199; padding:1rem; text-align:center; color:#fff; }
+    main { max-width:900px; margin:2rem auto; padding:1rem; }
+    h2 { border-left:4px solid #ffb199; padding-left:0.5rem; margin-top:2rem; }
+    section { margin-bottom:2rem; }
+    .screenshot { display:flex; flex-wrap:wrap; gap:1rem; }
+    .screenshot img { max-width:100%; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+    ul { padding-left:1.2rem; }
+    .tech-stack { display:flex; flex-wrap:wrap; gap:0.5rem; }
+    .tech-stack span { background:#ffd6cc; padding:0.3rem 0.6rem; border-radius:4px; font-size:0.9rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Todoシンプル版（MVP）</h1>
+  <p>Spring Boot + Thymeleaf で作ったシンプルなタスク管理アプリ</p>
+</header>
+
+<main>
+
+<section id="overview">
+  <h2>概要</h2>
+  <p>未完了タスクと完了タスクを分けて管理できるシンプルなTodoアプリです。  
+  Home画面風のカードデザインで、CRUD操作と完了切替が可能です。初学者でも理解しやすい設計を意識しました。</p>
+</section>
+
+<section id="features">
+  <h2>主な機能</h2>
+  <ul>
+    <li>タスク一覧表示（未完了・完了の分離、件数表示）</li>
+    <li>タスク新規作成（タイトル・メモ・担当者・期限日・時刻・完了フラグ）</li>
+    <li>タスク編集・削除</li>
+    <li>完了切替（チェックボックス操作で即座にUI更新）</li>
+    <li>完了タスクは折りたたみ表示可能</li>
+    <li>Home画面風のカードデザイン統一</li>
+  </ul>
+</section>
+
+<section id="screenshots">
+  <h2>スクリーンショット</h2>
+  <div class="screenshot">
+    <img src="/images/home.png" alt="Home画面">
+    <img src="/images/todo-new.png" alt="新規作成画面">
+    <img src="/images/todo-edit.png" alt="編集画面">
+  </div>
+</section>
+
+<section id="tech">
+  <h2>使用技術</h2>
+  <div class="tech-stack">
+    <span>Spring Boot</span>
+    <span>Thymeleaf</span>
+    <span>JavaScript (DOM操作, fetch API)</span>
+    <span>CSS3 / Flexbox</span>
+    <span>Lombok</span>
+    <span>H2 / MySQL / PostgreSQL</span>
+  </div>
+</section>
+
+<section id="learning">
+  <h2>学習ポイント / 工夫した点</h2>
+  <ul>
+    <li>チェックボックス操作で非同期にDOMを移動させ、即座にUIを更新</li>
+    <li>完了タスクの折りたたみ表示と件数更新の連動</li>
+    <li>CSS共通化でフォーム・カードのデザインを統一</li>
+    <li>初学者でも理解しやすい構成でMVCモデルを実装</li>
+    <li>エラー対応やイベント再バインドを通じて実務に近い感覚を学習</li>
+  </ul>
+</section>
+
+<section id="faq">
+  <h2>想定質問と回答例</h2>
+  <ul>
+    <li><strong>Q:</strong> JSで完了切替を実装した理由は？<br>
+        <strong>A:</strong> 非同期でUIを即座に更新し、ユーザー体験を向上させるため。サーバー応答後にDOMを移動させています。</li>
+    <li><strong>Q:</strong> Thymeleafを選んだ理由は？<br>
+        <strong>A:</strong> サーバーサイドで変数を埋め込み、簡潔にMVCパターンで画面を生成できるためです。</li>
+    <li><strong>Q:</strong> CSSを共通化した意図は？<br>
+        <strong>A:</strong> Home画面とフォームのデザインを統一し、保守性を高めるためです。</li>
+  </ul>
+</section>
+
+<section id="link">
+  <h2>GitHub / デモリンク</h2>
+  <ul>
+    <li><a href="https://github.com/username/todo-mvp" target="_blank">GitHubリポジトリ</a></li>
+    <li><a href="https://todo-demo.example.com" target="_blank">オンラインデモ</a></li>
+  </ul>
+</section>
+
+</main>
+</body>
+</html>
